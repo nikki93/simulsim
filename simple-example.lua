@@ -4,8 +4,6 @@
 -- Load simulsim as a dependency (you should use a url for a specific commit)
 local simulsim = require 'simulsim'
 
-simulsim.setLogLevel('INFO')
-
 local latency = 200
 
 -- Define a new game
