@@ -8,7 +8,7 @@ local LOG_LEVEL_PRIORITIES = {
   SILLY = 6
 }
 
-local logLevel = 'NONE'
+local logLevel = 'INFO'
 
 local function setLogLevel(lvl)
   logLevel = lvl

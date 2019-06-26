@@ -574,11 +574,11 @@ function GameClient:new(params)
       local clientLabel = self.clientId and ('Client ' .. self.clientId) or 'Client'
       local framesOfLatency = math.ceil(60 * latency + 1)
       if not prevLatency then
-        logger.info(clientLabel .. ' initializing latency to ' .. framesOfLatency .. ' frames [frame=' .. self.game.frame .. ']')
+        logger.debug(clientLabel .. ' initializing latency to ' .. framesOfLatency .. ' frames [frame=' .. self.game.frame .. ']')
       else
         local change = framesOfLatency - self._framesOfLatency
         if change ~= 0 then
-          logger.info(clientLabel .. ' adjusting latency from ' .. self._framesOfLatency .. ' to ' .. framesOfLatency .. ' frames (' .. (change >= 0 and '+' .. change or change) .. ') [frame=' .. self.game.frame .. ']')
+          logger.debug(clientLabel .. ' adjusting latency from ' .. self._framesOfLatency .. ' to ' .. framesOfLatency .. ' frames (' .. (change >= 0 and '+' .. change or change) .. ') [frame=' .. self.game.frame .. ']')
         end
       end
       self._framesOfLatency = framesOfLatency
@@ -592,11 +592,11 @@ function GameClient:new(params)
       local clientLabel = self.clientId and ('Client ' .. self.clientId) or 'Client'
       local frameOffset = math.ceil(offset + 1)
       if not prevOffset then
-        logger.info(clientLabel .. ' initializing frame offset to ' .. (frameOffset >= 0 and '+' .. frameOffset or frameOffset) .. ' frames [frame=' .. self.game.frame .. ']')
+        logger.debug(clientLabel .. ' initializing frame offset to ' .. (frameOffset >= 0 and '+' .. frameOffset or frameOffset) .. ' frames [frame=' .. self.game.frame .. ']')
       else
         local change = frameOffset - self._frameOffset
         if change ~= 0 then
-          logger.info(clientLabel .. ' adjusting frame offset from ' .. (self._frameOffset >= 0 and '+' .. self._frameOffset or self._frameOffset) .. ' to ' .. (frameOffset >= 0 and '+' .. frameOffset or frameOffset) .. ' frames (' .. (change >= 0 and '+' .. change or change) .. ') [frame=' .. self.game.frame .. ']')
+          logger.debug(clientLabel .. ' adjusting frame offset from ' .. (self._frameOffset >= 0 and '+' .. self._frameOffset or self._frameOffset) .. ' to ' .. (frameOffset >= 0 and '+' .. frameOffset or frameOffset) .. ' frames (' .. (change >= 0 and '+' .. change or change) .. ') [frame=' .. self.game.frame .. ']')
         end
       end
       local frameOffsetAdjustment = self._frameOffset - frameOffset

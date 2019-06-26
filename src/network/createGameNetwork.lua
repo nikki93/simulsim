@@ -281,11 +281,15 @@ local function createNetwork(gameDefinition, params)
 
   -- Log out the mode we're running in
   if mode == 'development' then
-    logger.info('Running in development mode -- will be simulating a multiplayer environment')
+    logger.info('Running in development mode -- will simulate a faux multiplayer environment')
   elseif mode == 'localhost' then
     logger.info('Running in localhost mode -- will spin up a localhost server and connect to it')
   elseif mode == 'multiplayer' then
-    logger.info('Running in multiplayer mode -- will attempt to connect to remote server')
+    if CASTLE_SERVER then
+      logger.info('Running in multiplayer mode -- will spin up a server for clients to connect to')
+    else
+      logger.info('Running in multiplayer mode -- will attempt to connect to remote server')
+    end
   end
 
   -- Create an in-memory network, which allows for neat things like simulating network conditions
