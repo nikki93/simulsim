@@ -104,6 +104,7 @@ function GameServer:new(params)
   local framesBetweenSnapshots = params.framesBetweenSnapshots or 46
   local maxClientEventFramesLate = params.maxClientEventFramesLate or 0
   local maxClientEventFramesEarly = params.maxClientEventFramesEarly or 45
+  local sendEventRejections = params.sendEventRejections ~= false
 
   -- Create the game
   local runner = GameRunner:new({
@@ -130,6 +131,7 @@ function GameServer:new(params)
     _framesBetweenSnapshots = framesBetweenSnapshots,
     _maxClientEventFramesLate = maxClientEventFramesLate,
     _maxClientEventFramesEarly = maxClientEventFramesEarly,
+    _sendEventRejections = sendEventRejections,
     _connectCallbacks = {},
 
     -- Public vars
@@ -310,7 +312,7 @@ function GameServer:new(params)
           -- else
           --   rejectReason = 'Server decided not to accept events from client'
           end
-          if not eventApplied then
+          if not eventApplied and self._sendEventRejections then
             -- Let the client know that their event was rejected or wasn't able to be applied
             client:_rejectEvent(event)
           end

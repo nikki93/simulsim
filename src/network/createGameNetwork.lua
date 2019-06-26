@@ -22,6 +22,7 @@ local function createInMemoryNetwork(gameDefinition, params)
   local latencySpikeChance = params.latencySpikeChance
   local packetLossChance = params.packetLossChance
   local cullRedundantEvents = params.cullRedundantEvents
+  local sendEventRejections = params.sendEventRejections
 
   -- Keep track of transport streams
   local transportStreams = {}
@@ -32,7 +33,8 @@ local function createInMemoryNetwork(gameDefinition, params)
     gameDefinition = gameDefinition,
     listener = listener,
     framesBetweenFlushes = framesBetweenFlushes,
-    framesBetweenSnapshots = framesBetweenServerSnapshots
+    framesBetweenSnapshots = framesBetweenServerSnapshots,
+    sendEventRejections = sendEventRejections
   })
 
   -- Create the clients
@@ -120,6 +122,7 @@ local function createLocalhostShareNetwork(gameDefinition, params)
   local framesBetweenClientSmoothing = params.framesBetweenClientSmoothing
   local exposeGameWithoutPrediction = params.exposeGameWithoutPrediction
   local cullRedundantEvents = params.cullRedundantEvents
+  local sendEventRejections = params.sendEventRejections
 
   -- Create the server
   local server = GameServer:new({
@@ -129,7 +132,8 @@ local function createLocalhostShareNetwork(gameDefinition, params)
       port = port
     }),
     framesBetweenFlushes = framesBetweenFlushes,
-    framesBetweenSnapshots = framesBetweenServerSnapshots
+    framesBetweenSnapshots = framesBetweenServerSnapshots,
+    sendEventRejections = sendEventRejections
   })
 
   -- Create the client
@@ -177,6 +181,7 @@ local function createServerSideShareNetwork(gameDefinition, params)
   local framesBetweenClientSmoothing = params.framesBetweenClientSmoothing
   local exposeGameWithoutPrediction = params.exposeGameWithoutPrediction
   local cullRedundantEvents = params.cullRedundantEvents
+  local sendEventRejections = params.sendEventRejections
 
   -- Create the server
   local server = GameServer:new({
@@ -185,7 +190,8 @@ local function createServerSideShareNetwork(gameDefinition, params)
       isLocalhost = false
     }),
     framesBetweenFlushes = framesBetweenFlushes,
-    framesBetweenSnapshots = framesBetweenServerSnapshots
+    framesBetweenSnapshots = framesBetweenServerSnapshots,
+    sendEventRejections = sendEventRejections
   })
 
   -- Create a fake client
@@ -221,6 +227,7 @@ local function createClientSideShareNetwork(gameDefinition, params)
   local framesBetweenClientSmoothing = params.framesBetweenClientSmoothing
   local exposeGameWithoutPrediction = params.exposeGameWithoutPrediction
   local cullRedundantEvents = params.cullRedundantEvents
+  local sendEventRejections = params.sendEventRejections
 
   -- Create a fake server
   local server = EmptyGameServer:new()
