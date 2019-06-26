@@ -21,6 +21,7 @@ local function createInMemoryNetwork(gameDefinition, params)
   local latencyDeviation = params.latencyDeviation
   local latencySpikeChance = params.latencySpikeChance
   local packetLossChance = params.packetLossChance
+  local cullRedundantEvents = params.cullRedundantEvents
 
   -- Keep track of transport streams
   local transportStreams = {}
@@ -64,7 +65,8 @@ local function createInMemoryNetwork(gameDefinition, params)
       conn = clientConn,
       framesBetweenFlushes = framesBetweenFlushes,
       framesBetweenSmoothing = framesBetweenClientSmoothing,
-      exposeGameWithoutPrediction = exposeGameWithoutPrediction
+      exposeGameWithoutPrediction = exposeGameWithoutPrediction,
+      cullRedundantEvents = cullRedundantEvents
     })
     client:simulateNetworkConditions({
       latency = latency,
@@ -117,6 +119,7 @@ local function createLocalhostShareNetwork(gameDefinition, params)
   local framesBetweenServerSnapshots = params.framesBetweenServerSnapshots
   local framesBetweenClientSmoothing = params.framesBetweenClientSmoothing
   local exposeGameWithoutPrediction = params.exposeGameWithoutPrediction
+  local cullRedundantEvents = params.cullRedundantEvents
 
   -- Create the server
   local server = GameServer:new({
@@ -138,7 +141,8 @@ local function createLocalhostShareNetwork(gameDefinition, params)
     }),
     framesBetweenFlushes = framesBetweenFlushes,
     framesBetweenSmoothing = framesBetweenClientSmoothing,
-    exposeGameWithoutPrediction = exposeGameWithoutPrediction
+    exposeGameWithoutPrediction = exposeGameWithoutPrediction,
+    cullRedundantEvents = cullRedundantEvents
   })
 
   -- Return a localhost network that uses share.lua
@@ -172,6 +176,7 @@ local function createServerSideShareNetwork(gameDefinition, params)
   local framesBetweenServerSnapshots = params.framesBetweenServerSnapshots
   local framesBetweenClientSmoothing = params.framesBetweenClientSmoothing
   local exposeGameWithoutPrediction = params.exposeGameWithoutPrediction
+  local cullRedundantEvents = params.cullRedundantEvents
 
   -- Create the server
   local server = GameServer:new({
@@ -215,6 +220,7 @@ local function createClientSideShareNetwork(gameDefinition, params)
   local framesBetweenServerSnapshots = params.framesBetweenServerSnapshots
   local framesBetweenClientSmoothing = params.framesBetweenClientSmoothing
   local exposeGameWithoutPrediction = params.exposeGameWithoutPrediction
+  local cullRedundantEvents = params.cullRedundantEvents
 
   -- Create a fake server
   local server = EmptyGameServer:new()
@@ -227,7 +233,8 @@ local function createClientSideShareNetwork(gameDefinition, params)
     }),
     framesBetweenFlushes = framesBetweenFlushes,
     framesBetweenSmoothing = framesBetweenClientSmoothing,
-    exposeGameWithoutPrediction = exposeGameWithoutPrediction
+    exposeGameWithoutPrediction = exposeGameWithoutPrediction,
+    cullRedundantEvents = cullRedundantEvents
   })
 
   -- Return a localhost network that uses share.lua
